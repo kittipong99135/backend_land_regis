@@ -1,0 +1,12 @@
+version: "3"
+
+tasks:
+  dev:
+    desc: "Start go-fiber server"
+    cmds:
+      - go run cli/main.go start
+  swag:
+    desc: "Generate swagger docs"
+    cmds:
+      - swag fmt
+      - swag init -g src/routes/router.go

@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "2d8078fb-220a-49cf-a734-0049ea6858bb",
+		"name": "[test] : landregis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38760261"
+	},
+	"item": [
+		{
+			"name": "[module] : agent",
+			"item": [
+				{
+					"name": "[add] /agent/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"prmkst\",\r\n    \"email\": \"user2@email.com\",\r\n    \"phone_number\": \"0888888888\",\r\n    \"password\": \"as123456\",\r\n    \"confirm_password\": \"as123456\",\r\n    \"otp_code\": \"052525\",\r\n    \"azure_ad_id\" : \"[test]\",\r\n    \"auth_type\": \"[test]\",\r\n    \"firstname\": \"tim\",\r\n    \"lastname\": \"koock\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/agent/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"agent",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[list] /agent/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/agent/?role_web=ROLE_ADMIN",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"agent",
+								""
+							],
+							"query": [
+								{
+									"key": "role_web",
+									"value": "ROLE_ADMIN"
+								},
+								{
+									"key": "role_office",
+									"value": "ROLE_TEST,ROLE_GUST",
+									"disabled": true
+								},
+								{
+									"key": "position",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[read] /agent/:agent_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/agent/:agent_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"agent",
+								":agent_id"
+							],
+							"variable": [
+								{
+									"key": "agent_id",
+									"value": "0000001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[module] : role",
+			"item": [
+				{
+					"name": "[add] /role/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role_name\": \"test\",\r\n    \"role_ref\": \"website\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/role/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[list] /role/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/role/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[read] /role/:role_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/role/:role_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								":role_id"
+							],
+							"variable": [
+								{
+									"key": "role_id",
+									"value": "ROLE_TEST"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[module] : permission",
+			"item": [
+				{
+					"name": "[add] /permission/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"permission_name\": \"Test\",\r\n    \"module\" : \"ทดสอบ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/permission/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"permission",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[list] /permission/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/permission/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"permission",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[read] /permission/:permission_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/permission/:permission_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"permission",
+								":permission_id"
+							],
+							"variable": [
+								{
+									"key": "permission_id",
+									"value": "PERM_TEST"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[module] : role-permission",
+			"item": [
+				{
+					"name": "[add] /role_permission/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role_id\" : \"ROLE_TEST\",\r\n    \"group_permission\": [\r\n        {\r\n            \"permission_id\": \"PERM_AGENT\",\r\n            \"permissions\" : {\r\n                \"create\": true,\r\n                \"view\": true,\r\n                \"edit\": true,\r\n                \"delete\": true\r\n            }\r\n        },\r\n        {\r\n            \"permission_id\": \"PERM_LAND\",\r\n            \"permissions\" : {\r\n                \"create\": true,\r\n                \"view\": true,\r\n                \"edit\": true,\r\n                \"delete\": true\r\n            }\r\n        },\r\n        {\r\n            \"permission_id\": \"PERM_LAYER\",\r\n            \"permissions\" : {\r\n                \"create\": true,\r\n                \"view\": true,\r\n                \"edit\": true,\r\n                \"delete\": true\r\n            }\r\n        },\r\n        {\r\n            \"permission_id\": \"PERM_SETTINGPERMISSI\",\r\n            \"permissions\" : {\r\n                \"create\": true,\r\n                \"view\": true,\r\n                \"edit\": true,\r\n                \"delete\": true\r\n            }\r\n        },\r\n         {\r\n            \"permission_id\": \"PERM_USER\",\r\n            \"permissions\" : {\r\n                \"create\": true,\r\n                \"view\": true,\r\n                \"edit\": true,\r\n                \"delete\": true\r\n            }\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/role_permission/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role_permission",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[list] /role_permission/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/role_permission/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role_permission",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[read] /role_permission/:role_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/role_permission/:role_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role_permission",
+								":role_id"
+							],
+							"variable": [
+								{
+									"key": "role_id",
+									"value": "ROLE_TEST"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[update]  /role/:role_id/permission datail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role_id\" : \"ROLE_TEST\",\r\n    \"group_permission\": [\r\n            {\r\n                \"permission_id\": \"PERM_AGENT\",\r\n                \"permission_name\": \"Agent\",\r\n                \"module\": \"ข้อมูลนายหน้า\",\r\n                \"permissions\": {\r\n                    \"create\": false,\r\n                    \"view\": false,\r\n                    \"edit\": false,\r\n                    \"delete\": false\r\n                }\r\n            },\r\n            {\r\n                \"permission_id\": \"PERM_LAND\",\r\n                \"permission_name\": \"Land\",\r\n                \"module\": \"ข้อมูลที่ดิน\",\r\n                \"permissions\": {\r\n                    \"create\": true,\r\n                    \"view\": true,\r\n                    \"edit\": true,\r\n                    \"delete\": true\r\n                }\r\n            }\r\n            // {\r\n            //     \"permission_id\": \"PERM_LAYER\",\r\n            //     \"permission_name\": \"Layer\",\r\n            //     \"module\": \"จัดการ Layer\",\r\n            //     \"permissions\": {\r\n            //         \"create\": false,\r\n            //         \"view\": false,\r\n            //         \"edit\": false,\r\n            //         \"delete\": true\r\n            //     }\r\n            // },\r\n            // {\r\n            //     \"permission_id\": \"PERM_SETTINGPERMISSI\",\r\n            //     \"permission_name\": \"SettingPermission\",\r\n            //     \"module\": \"ตั้งค่าการเข้าถึง\",\r\n            //     \"permissions\": {\r\n            //         \"create\": false,\r\n            //         \"view\": false,\r\n            //         \"edit\": false,\r\n            //         \"delete\": false\r\n            //     }\r\n            // },\r\n            // {\r\n            //     \"permission_id\": \"PERM_USER\",\r\n            //     \"permission_name\": \"User\",\r\n            //     \"module\": \"จัดการผู้ใช้งาน\",\r\n            //     \"permissions\": {\r\n            //         \"create\": false,\r\n            //         \"view\": false,\r\n            //         \"edit\": false,\r\n            //         \"delete\": true\r\n            //     }\r\n            // }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/role/:role_id/permission_detail",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role",
+								":role_id",
+								"permission_detail"
+							],
+							"variable": [
+								{
+									"key": "role_id",
+									"value": "ROLE_TEST"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost:5000",
+			"type": "string"
+		}
+	]
+}

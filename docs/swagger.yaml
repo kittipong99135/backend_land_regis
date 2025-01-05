@@ -1,0 +1,725 @@
+basePath: /api/v1
+definitions:
+  controllers.accountCreated:
+    properties:
+      auth_type:
+        type: string
+      azure_ad_id:
+        type: string
+      confirm_password:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
+      otp_code:
+        type: string
+      password:
+        type: string
+      phone_number:
+        type: string
+      username:
+        type: string
+    type: object
+  controllers.roleCreated:
+    properties:
+      role_name:
+        type: string
+      role_ref:
+        type: string
+    type: object
+  models.GetAccount:
+    properties:
+      account_id:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
+      phone_number:
+        type: string
+      role_id:
+        type: string
+      status:
+        type: string
+      username:
+        type: string
+    type: object
+  models.GroupRolePermission:
+    properties:
+      model:
+        type: string
+      permission_id:
+        type: string
+      permission_name:
+        type: string
+      permissions:
+        $ref: '#/definitions/models.PermissionJson'
+    type: object
+  models.Permission:
+    properties:
+      created_at:
+        description: Timestamp when the permission was created
+        type: string
+      module:
+        description: Module or feature associated with the permission
+        type: string
+      permission_id:
+        description: Unique ID for the permission (Primary Key)
+        type: string
+      permission_name:
+        description: Name of the permission
+        type: string
+      updated_at:
+        description: Timestamp when the permission was last updated (Nullable)
+        type: string
+    type: object
+  models.PermissionJson:
+    properties:
+      create:
+        type: boolean
+      delete:
+        type: boolean
+      edit:
+        type: boolean
+      view:
+        type: boolean
+    type: object
+  models.Role:
+    properties:
+      created_at:
+        description: วันที่และเวลาที่สร้างบทบาท
+        type: string
+      permissions:
+        allOf:
+        - $ref: '#/definitions/models.PermissionJson'
+        description: สิทธิ์ที่อนุญาตในบทบาทนั้น (JSON)
+      role_id:
+        description: รหัสบทบาท (Primary Key)
+        type: string
+      role_name:
+        description: ชื่อบทบาท (Unique Index)
+        type: string
+      updated_at:
+        description: วันที่และเวลาที่อัปเดตบทบาท (Nullable)
+        type: string
+    type: object
+  models.RolePermissionBody:
+    properties:
+      group_permission:
+        items:
+          $ref: '#/definitions/models.GroupRolePermission'
+        type: array
+      role_id:
+        type: string
+      role_name:
+        type: string
+      role_permission_id:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: เอกสารการใช้งาน API Land Registeation สำหรับ Developer
+  title: Land Registeation API Documentation
+  version: 0.0.9
+paths:
+  /agent/:
+    get:
+      consumes:
+      - application/json
+      description: get GetallAgentEndpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            items:
+              $ref: '#/definitions/models.GetAccount'
+            type: array
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get all agent
+      tags:
+      - Agent
+    post:
+      consumes:
+      - application/json
+      description: create new agent by request body
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.accountCreated'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: handler func Create agent endpoinrt
+      tags:
+      - Agent
+  /agent/:agent_id:
+    delete:
+      consumes:
+      - application/json
+      description: delete DeleteAgentEndpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Delete agent
+      tags:
+      - Agent
+    get:
+      consumes:
+      - application/json
+      description: get GetOneAgentEndpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.GetAccount'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get one agent
+      tags:
+      - Agent
+    put:
+      consumes:
+      - application/json
+      description: edit EditAgentEndpoint
+      parameters:
+      - description: Agent ID
+        in: path
+        name: agent_id
+        required: true
+        type: string
+      - description: Request body for editing an agent
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Edit agent
+      tags:
+      - Agent
+  /permission/:
+    get:
+      consumes:
+      - application/json
+      description: get GetallPermissionEndpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            items:
+              $ref: '#/definitions/models.Permission'
+            type: array
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get all permission
+      tags:
+      - Permission
+    post:
+      consumes:
+      - application/json
+      description: post CreatePermissionEndpoint
+      parameters:
+      - description: Request body for created role
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Permission'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.Permission'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Create permission
+      tags:
+      - Permission
+  /permission/{permission_id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete DeletePermissionEndpoint
+      parameters:
+      - description: Pemission ID
+        in: path
+        name: permission_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.Permission'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Delete permission
+      tags:
+      - Permission
+    get:
+      consumes:
+      - application/json
+      description: get GetPermissionEndpoint
+      parameters:
+      - description: Pemission ID
+        in: path
+        name: permission_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.Permission'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get  one permission
+      tags:
+      - Permission
+    put:
+      consumes:
+      - application/json
+      description: put EditPermissionEndpoint
+      parameters:
+      - description: Pemission ID
+        in: path
+        name: permission_id
+        required: true
+        type: string
+      - description: Request body for created role
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.Permission'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Edit permission
+      tags:
+      - Permission
+  /role/:
+    get:
+      consumes:
+      - application/json
+      description: get GetallRoleEndpoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: role data
+          schema:
+            items:
+              $ref: '#/definitions/models.Role'
+            type: array
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get all role
+      tags:
+      - Role
+    post:
+      consumes:
+      - application/json
+      description: create  new role by request body
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.roleCreated'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: handler func  Create role endpoint
+      tags:
+      - Role
+  /role/:role_id:
+    get:
+      consumes:
+      - application/json
+      description: put GetoneRoleEndpoint
+      parameters:
+      - description: Role ID
+        in: path
+        name: role_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.Role'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get one role
+      tags:
+      - Role
+  /role/{role_id}:
+    put:
+      consumes:
+      - application/json
+      description: put EditRolePermissionEndpoint
+      parameters:
+      - description: Role ID
+        in: path
+        name: role_id
+        required: true
+        type: string
+      - description: Request body for editing an role permission
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PermissionJson'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Edit permission role
+      tags:
+      - Role
+  /role/{role_id}/permission_detail:
+    put:
+      consumes:
+      - application/json
+      description: put UpdateRolePermissionEndpoint
+      parameters:
+      - description: Role ID
+        in: path
+        name: role_id
+        required: true
+        type: string
+      - description: Request body for editing an role permission
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.RolePermissionBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Update role permission detail
+      tags:
+      - RolePermission
+  /role/role_permission/:
+    post:
+      consumes:
+      - application/json
+      description: post CreateRolePermissionEndpoint
+      parameters:
+      - description: Request body for created role
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.RolePermissionBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Create role permission
+      tags:
+      - RolePermission
+  /role_permission:
+    get:
+      consumes:
+      - application/json
+      description: get GetallRolePermissionEndPoint
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            items:
+              $ref: '#/definitions/models.RolePermissionBody'
+            type: array
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get all role permission
+      tags:
+      - RolePermission
+  /role_permission/{role_permiassion_id}:
+    get:
+      consumes:
+      - application/json
+      description: get GetRolePermissionEndPoint
+      parameters:
+      - description: Role ID
+        in: path
+        name: role_permiassion_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.RolePermissionBody'
+        "401":
+          description: Unauthorized error
+          schema:
+            type: string
+        "404":
+          description: Data not found error
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get one role permission
+      tags:
+      - RolePermission
+schemes:
+- http
+- https
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
