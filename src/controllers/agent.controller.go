@@ -47,6 +47,7 @@ func CreateAgentEndpoinrt(c *fiber.Ctx) error {
 	if err := c.BodyParser(&body); err != nil {
 		return c.Status(fiber.ErrBadRequest.Code).SendString(err.Error())
 	}
+
 	// [process] : auto increment
 	account := database.Account{}
 	type MaxId struct {
@@ -57,6 +58,7 @@ func CreateAgentEndpoinrt(c *fiber.Ctx) error {
 	if err := database.DB.Raw("SELECT MAX(CAST(account_id AS UNSIGNED)) AS max_id FROM tbl_accounts").Scan(&maxId).Error; err != nil {
 		c.Status(fiber.StatusInternalServerError).SendString("[Error] : " + err.Error())
 	}
+
 	accountId, err := strconv.Atoi(string(maxId.Id))
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError).SendString("[Error] : " + err.Error())
@@ -66,6 +68,7 @@ func CreateAgentEndpoinrt(c *fiber.Ctx) error {
 	if body.Password != body.ConfirmPassword {
 		c.Status(fiber.ErrBadRequest.Code).SendString("[Error] : password miss match")
 	}
+
 	passwordHash, err := helper.UHash.HashedString(body.Password)
 	if err != nil {
 		c.Status(fiber.ErrInternalServerError.Code).SendString("[Error] : " + err.Error())

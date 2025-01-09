@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2025 at 05:32 AM
+-- Generation Time: Jan 09, 2025 at 05:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,7 +32,7 @@ CREATE TABLE `tbl_accounts` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `account_id` varchar(10) NOT NULL,
-  `username'type:varchar(50)` longtext DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `phone_number` varchar(10) DEFAULT NULL,
   `otp_code` varchar(10) DEFAULT NULL,
@@ -51,10 +51,41 @@ CREATE TABLE `tbl_accounts` (
 -- Dumping data for table `tbl_accounts`
 --
 
-INSERT INTO `tbl_accounts` (`created_at`, `updated_at`, `deleted_at`, `account_id`, `username'type:varchar(50)`, `email`, `phone_number`, `otp_code`, `otp_expiry`, `azure_ad_id`, `auth_type`, `firstname`, `lastname`, `status`, `role_office_id`, `role_website_id`, `password`) VALUES
+INSERT INTO `tbl_accounts` (`created_at`, `updated_at`, `deleted_at`, `account_id`, `username`, `email`, `phone_number`, `otp_code`, `otp_expiry`, `azure_ad_id`, `auth_type`, `firstname`, `lastname`, `status`, `role_office_id`, `role_website_id`, `password`) VALUES
 ('2025-01-04 13:11:00', '2025-01-05 10:04:53', NULL, '0000001', 'ktpkst', 'user1@email.com', '0666666666', '052525', NULL, '[test]', '[test]', 'john', 'doe', '', 'ROLE_TEST', 'ROLE_ADMIN', '$2a$10$6yWit3AUmdpUPZFZBmAzouCTioyC/0uGSXfWu1wuvyXw4LrFzP7t.'),
 ('2025-01-04 13:22:50', '2025-01-04 13:22:50', NULL, '0000002', 'prmkst', 'user2@email.com', '0888888888', '052525', NULL, '[test]', '[test]', 'tim', 'koock', '', 'ROLE_GUST', 'ROLE_GUST', '$2a$10$csq4kOAY6P8PYr4OaaffKebXKJ4ATAVPm64XWOKpXC31uZAzdo/KW'),
 ('2025-01-04 13:23:48', '2025-01-04 13:23:48', NULL, '0000003', 'wtnkst', 'user3@email.com', '0999999999', '052525', NULL, '[test]', '[test]', 'nine', 'tail', '', 'ROLE_GUST', 'ROLE_GUST', '$2a$10$28XQfjBjEMoUaj6jHDk0beGKR4vKMZ0JqC75d.8KB/4vu06kRNUWu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_layers`
+--
+
+CREATE TABLE `tbl_layers` (
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `layer_id` varchar(10) NOT NULL,
+  `layer_name` varchar(20) DEFAULT NULL,
+  `kmz_path` varchar(100) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `update_by` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tbl_layers`
+--
+
+INSERT INTO `tbl_layers` (`created_at`, `updated_at`, `deleted_at`, `layer_id`, `layer_name`, `kmz_path`, `status`, `update_by`) VALUES
+('2025-01-09 22:10:57', '2025-01-09 22:10:57', NULL, '0000001', 'คอนโด1', 'public/kmz/[L-0000001]:คอนโด1.kmz', 1, 'john doe'),
+('2025-01-09 22:11:29', '2025-01-09 22:11:29', NULL, '0000002', 'คอนโด2', 'public/kmz/[L-0000002]:คอนโด2.kmz', 1, 'john doe'),
+('2025-01-09 22:11:37', '2025-01-09 22:11:37', NULL, '0000003', 'คอนโด3', 'public/kmz/[L-0000003]:คอนโด3.kmz', 1, 'john doe'),
+('2025-01-09 22:12:00', '2025-01-09 22:12:00', NULL, '0000004', 'AP1', 'public/kmz/[L-0000004]:AP1.kmz', 1, 'john doe'),
+('2025-01-09 22:12:03', '2025-01-09 22:12:03', NULL, '0000005', 'AP2', 'public/kmz/[L-0000005]:AP2.kmz', 1, 'john doe'),
+('2025-01-09 22:12:10', '2025-01-09 22:12:10', NULL, '0000006', 'AP3', 'public/kmz/[L-0000006]:AP3.kmz', 1, 'john doe'),
+('2025-01-09 22:12:23', '2025-01-09 22:12:23', NULL, '0000007', 'คอนโด4', 'public/kmz/[L-0000007]:คอนโด4.kmz', 1, 'john doe'),
+('2025-01-09 22:16:49', '2025-01-09 22:49:50', '2025-01-09 22:53:54', '0000008', 'AP4', 'public/kmz/[L-0000008]:AP4.kmz', 1, 'john doe');
 
 -- --------------------------------------------------------
 
@@ -154,10 +185,19 @@ ALTER TABLE `tbl_accounts`
   ADD PRIMARY KEY (`account_id`),
   ADD UNIQUE KEY `idx_phone_number` (`phone_number`),
   ADD UNIQUE KEY `idx_email` (`email`),
-  ADD UNIQUE KEY `idx_username` (`username'type:varchar(50)`) USING HASH,
+  ADD UNIQUE KEY `idx_username` (`username`),
   ADD KEY `idx_tbl_accounts_deleted_at` (`deleted_at`),
   ADD KEY `fk_tbl_accounts_role_office` (`role_office_id`),
   ADD KEY `fk_tbl_accounts_role_website` (`role_website_id`);
+
+--
+-- Indexes for table `tbl_layers`
+--
+ALTER TABLE `tbl_layers`
+  ADD PRIMARY KEY (`layer_id`),
+  ADD UNIQUE KEY `uni_tbl_layers_layer_name` (`layer_name`),
+  ADD UNIQUE KEY `uni_tbl_layers_kmz_path` (`kmz_path`),
+  ADD KEY `idx_tbl_layers_deleted_at` (`deleted_at`);
 
 --
 -- Indexes for table `tbl_permissions`

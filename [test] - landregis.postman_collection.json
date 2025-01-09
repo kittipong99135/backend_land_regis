@@ -7,6 +7,40 @@
 	},
 	"item": [
 		{
+			"name": "[module] : user",
+			"item": [
+				{
+					"name": "[auth] /signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"ktpkst\",\r\n    \"password\" : \"as123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/auth/signin",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "[module] : agent",
 			"item": [
 				{
@@ -113,6 +147,16 @@
 				{
 					"name": "[add] /role/",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NDI4NDY0LCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.n4nAZtPp5fmpGQMRgT_clP1jTMcZU3TKaUAHPcno3yw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -142,6 +186,16 @@
 				{
 					"name": "[list] /role/",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NDI4NDY0LCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.n4nAZtPp5fmpGQMRgT_clP1jTMcZU3TKaUAHPcno3yw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -162,6 +216,16 @@
 				{
 					"name": "[read] /role/:role_id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NDI4NDY0LCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.n4nAZtPp5fmpGQMRgT_clP1jTMcZU3TKaUAHPcno3yw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -387,6 +451,218 @@
 								{
 									"key": "role_id",
 									"value": "ROLE_TEST"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "[module] : layer",
+			"item": [
+				{
+					"name": "[add] /layer/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NTE0NzcyLCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.Vf1DECyNgKbyx61AC2VBbCVGpp6VmJvXAVyy42SuQ7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "layer_name",
+									"value": "คอนโด5",
+									"type": "text"
+								},
+								{
+									"key": "kmz_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/layer/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"layer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[list] : /layer/",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NTE0NzcyLCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.Vf1DECyNgKbyx61AC2VBbCVGpp6VmJvXAVyy42SuQ7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/layer",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"layer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[read] : /layer/:layer_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NTE0NzcyLCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.Vf1DECyNgKbyx61AC2VBbCVGpp6VmJvXAVyy42SuQ7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/layer/:layer_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"layer",
+								":layer_id"
+							],
+							"variable": [
+								{
+									"key": "layer_id",
+									"value": "0000008"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[update] : /laye/:layer_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NTE0NzcyLCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.Vf1DECyNgKbyx61AC2VBbCVGpp6VmJvXAVyy42SuQ7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "layer_name",
+									"value": "AP4",
+									"type": "text"
+								},
+								{
+									"key": "kmz_file",
+									"type": "file",
+									"src": "/C:/Users/DELL/OneDrive/เดสก์ท็อป/ban plu.kmz"
+								},
+								{
+									"key": "status",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/layer/:layer_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"layer",
+								":layer_id"
+							],
+							"variable": [
+								{
+									"key": "layer_id",
+									"value": "0000008"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[delete] : /layer/:layer_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMDAwMDAwMSIsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZXhwIjoxNzM2NTE0NzcyLCJmaXJzdF9uYW1lIjoiam9obiIsImxhc3RfbmFtZSI6ImRvZSIsInJvbGVfb2ZmaWNlIjoiUk9MRV9URVNUIiwicm9sZV93ZWJzaXRlIjoiUk9MRV9BRE1JTiJ9.Vf1DECyNgKbyx61AC2VBbCVGpp6VmJvXAVyy42SuQ7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/layer/:layer_id",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"layer",
+								":layer_id"
+							],
+							"variable": [
+								{
+									"key": "layer_id",
+									"value": "0000008"
 								}
 							]
 						}

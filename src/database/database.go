@@ -50,6 +50,7 @@ func Connect(host, port string) error {
 		&Role{},
 		&Permission{},
 		&RolePermission{},
+		&Layer{},
 	)
 
 	if err != nil {

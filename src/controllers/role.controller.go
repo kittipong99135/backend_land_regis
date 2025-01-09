@@ -68,7 +68,6 @@ func CreateRoleEndpoint(c *fiber.Ctx) error {
 //	@Router			/role/ [get]
 func GetallRoleEndpoint(c *fiber.Ctx) error {
 	roles := []database.Role{}
-
 	if err := database.DB.Find(&roles).Error; err != nil {
 		log.Println(err.Error())
 		return c.Status(500).JSON(fiber.Map{

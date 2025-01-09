@@ -1,6 +1,20 @@
 package models
 
-import "time"
+import (
+	"agent_office/src/database"
+	"time"
+)
+
+type RoleValidate struct {
+	RoleId     string
+	Permission []PermissionValidate
+}
+
+type PermissionValidate struct {
+	PermissionId     string
+	Action           string
+	PermissionDetail database.JsonPermission
+}
 
 type Account struct {
 	AccountID       string     ` json:"account_id" gorm:"column:account_id;primaryKey"`

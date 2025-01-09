@@ -17,7 +17,7 @@ type BaseModel struct {
 type Account struct {
 	BaseModel
 	AccountId     string     `json:"account_id" gorm:"primaryKey;column:account_id;type:varchar(10)"`
-	Username      string     `json:"username" gorm:"uniqueIndex:idx_username;column:username'type:varchar(50)"`
+	Username      string     `json:"username" gorm:"uniqueIndex:idx_username;column:username;type:varchar(50)"`
 	Email         string     `json:"email" gorm:"uniqueIndex:idx_email;column:email;type:varchar(50)"`
 	Password      string     `json:"password" gorm:"column:password"`
 	PhoneNumber   string     `json:"phone_number" gorm:"uniqueIndex:idx_phone_number;column:phone_number;type:varchar(10)"`
@@ -87,4 +87,17 @@ type RolePermission struct {
 
 func (RolePermission) TableName() string {
 	return "tbl_role_permission"
+}
+
+type Layer struct {
+	BaseModel
+	LayerId   string `gorm:"primaryKey;column:layer_id;type:varchar(10)" json:"layer_id"`
+	LayerName string `gorm:"column:layer_name;type:varchar(20);unique" json:"layer_name"`
+	KmzPath   string `gorm:"column:kmz_path;type:varchar(100);unique" json:"kmz_path"`
+	Status    bool   `gorm:"column:status;type:boolean" json:"status"`
+	UpdateBy  string `gorm:"column:update_by;type:varchar(100)" json:"update_by"`
+}
+
+func (Layer) TableName() string {
+	return "tbl_layers"
 }

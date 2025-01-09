@@ -2,6 +2,7 @@ package routes
 
 import (
 	c "agent_office/src/controllers"
+	"agent_office/src/middleware"
 	"fmt"
 
 	swagger "github.com/gofiber/contrib/swagger"
@@ -44,13 +45,15 @@ func Start(host string, port string) error {
 		{
 			auth := v1.Group("/auth")
 			{
-				auth.Post("/sign_in", c.SignInEndpoint)
+				auth.Post("/signin", c.SignInEndpoint)
 			}
+
 			role := v1.Group("/role")
 			{
-				role.Post("/", c.CreateRoleEndpoint)        //todo :[swagger]
-				role.Get("/", c.GetallRoleEndpoint)         //todo :[swagger]
-				role.Get("/:role_id", c.GetoneRoleEndpoint) //todo :[swagger]
+				role.Post("/", c.CreateRoleEndpoint)
+				role.Get("/", c.GetallRoleEndpoint) //todo :[swagger]
+				// role.Get("/", middleware.ValidateHmac(getallRoleEndpoint()), c.GetallRoleEndpoint) //todo :[swagger]
+				role.Get("/:role_id", c.GetoneRoleEndpoint)
 				role.Put("/:role_id", c.EditRolePermissionEndpoint)
 				role.Put("/:role_id/permission_detail", c.UpdateRolePermissionEndpoint) //todo :[swagger]
 
@@ -79,9 +82,13 @@ func Start(host string, port string) error {
 				agent.Delete("/:agent_id", c.DeleteAgentEndpoint)
 				agent.Get("/export", c.DownloadAgentEndpoint)
 			}
-			layer := v1.Group("/layer")
+			layer := v1.Group("/layer", middleware.ValidateHmac())
 			{
 				layer.Post("/", c.CreateLayerEndpoint)
+				layer.Get("/", c.GetallLayerEndpoint)
+				layer.Get("/:layer_id", c.GetOneLayerEndpoint)
+				layer.Put("/:layer_id", c.EditLayerEndpoint)
+				layer.Delete("/:layer_id", c.DeleteLayerEndpoint)
 			}
 		}
 	}
